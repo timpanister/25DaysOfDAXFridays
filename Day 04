@@ -1,0 +1,9 @@
+//Day 4: How many products are above the average unit price?
+
+Day 04 = 
+VAR AvgUnitPrice= AVERAGE(Products[UnitPrice])
+RETURN
+
+CALCULATE(
+    COUNTA(Products[ProductID]),
+    Products[UnitPrice] > AvgUnitPrice) 
