@@ -1,0 +1,12 @@
+//Day 8: How many orders are single product orders?
+
+Day 08 = 
+COUNTROWS(
+    FILTER(
+        SUMMARIZECOLUMNS(
+            Orders[OrderID], 
+            "ProductCount", COUNTA(Orders[ProductID])
+            ), 
+        [ProductCount]=1
+    )
+)
