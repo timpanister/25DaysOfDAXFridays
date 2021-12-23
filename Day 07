@@ -1,0 +1,7 @@
+//Day 7: What is the order value of open (not shipped yet) orders?
+
+Day 07 = 
+CALCULATE (
+  [Total sales], 
+  ISBLANK ( Orders[ShippedDate] )
+)
