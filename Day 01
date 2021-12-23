@@ -1,0 +1,8 @@
+// Day 1: How many current products cost less than $20
+
+Day 01 = 
+CALCULATE (
+  COUNTA(Products[ProductID]),
+  FILTER(Products, Products[Unit Price] <20),
+  FILTER(Products, Products[Discontinued]=FALSE())
+)
