@@ -1,0 +1,7 @@
+//Day 2: Which product is the most expensive? 
+
+Day 02 = 
+CALCULATE(
+  SELECTEDVALUE(Products[ProductName]), 
+  Products[UnitPrice] = MAX(Products[UnitPrice])
+)
