@@ -1,0 +1,25 @@
+// Day 10: How many days since North/South last purchase?
+
+// Method 1: 
+Day 10 = 
+CALCULATE (
+    MINX ( Orders, DATEDIFF ( Orders[OrderDate], TODAY (), DAY )) , // Get the min of  the days lapsed since order Date
+    Customers[CompanyName] = "North/South"    //filter for company
+)
+
+
+// Method 2: 
+VAR LastOrderDate = 
+    CALCULATE(
+        LASTDATE(
+            Orders[OrderDate]
+            ), 
+        Customers[CompanyName]="North/South")
+
+
+VAR Ans = DATEDIFF(
+    LastOrderDate, TODAY(), DAY
+    )
+return
+
+Ans
