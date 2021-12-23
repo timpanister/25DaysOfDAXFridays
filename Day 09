@@ -1,0 +1,7 @@
+//What is the average transaction value per order ID for customer 'Romero y Tomillo' ?
+
+Day 09 = 
+CALCULATE(
+    AVERAGEX( VALUES(Orders[OrderID]), [Total Sales] ), // Get the Total Sales for each OrderID and take the avg of the sales
+    Customers[CompanyName] = "Romero y Tomillo", //filter for company
+)   
