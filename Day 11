@@ -1,0 +1,11 @@
+// Day 11: How many customers have only ordered once?
+
+Day 11 = 
+COUNTROWS(
+    FILTER(
+        SUMMARIZECOLUMNS (
+            Customers[CustomerID],
+            "OrderCount", COUNTROWS ( VALUES( Orders[OrderID] ) )
+    ),
+    [OrderCount] = 1
+)
