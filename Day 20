@@ -1,0 +1,21 @@
+// Which vendor has the highest stock value?
+
+Day 20.1 = 
+
+CALCULATE(
+    SELECTEDVALUE(
+        Suppliers[CompanyName]),
+    TOPN(
+      1,
+        SUMMARIZECOLUMNS(
+            Suppliers[CompanyName], 
+            "Stock Value",
+            CALCULATE (
+                SUMX ( Products, [Unit Price] * [Stocked units]),    ---- SUMPRODUCT of Unit Price & Stocked Units Measures 
+                Products[Discontinued] = False()                     ---- Use Boolean operator (datatype is Boolean)
+            )
+        ),
+      [Stock Value],
+          DESC
+    )
+)
