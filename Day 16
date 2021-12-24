@@ -1,0 +1,33 @@
+// How many products are out of stock? 
+
+//Method 1:  
+Day 16 CalcTable = 
+COUNTROWS(
+    CALCULATETABLE(                                        -- Can be substituted with FILTER
+        SUMMARIZECOLUMNS(
+            Products[ProductName], 
+            Products[UnitsInStock]
+        ),
+        Products[UnitsInStock] =0
+    ) 
+)
+
+//Method 2:
+Day 16: 
+COUNTROWS(
+  FILTER(
+      Products, [UnitsInStock] =0)
+  )
+
+// Method 3:
+Day 16.1 SUMMARIZE = 
+COUNTROWS(
+    FILTER (
+        SUMMARIZE (
+            Products, 
+            Products[ProductID], 
+            "StockLevel", SUM(Products[UnitsInStock])
+        ),
+        [StockLevel] =0
+    )
+)
