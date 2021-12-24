@@ -1,0 +1,22 @@
+// How many employees are 60 years over and above?
+
+// Method 1:
+Day 22 Employees 60 years+ = 
+ CALCULATE(
+     COUNTROWS(Employees), 
+     FILTER(
+         ALL(Employees), 
+         Employees[Age]>=60
+    ) 
+)
+
+// Method 2: Curbal
+COUNTROWS (
+    FILTER (
+        SUMMARIZECOLUMNS (
+            Employees[Full Name],
+            "Age", DATEDIFF ( VALUES(Employees[BirthDate]), TODAY (), YEAR )     -- Need to wrap Employees[Birthdate] around VALUES else multiple values returned.
+        ),
+        [Age] >= 60
+    )
+)
