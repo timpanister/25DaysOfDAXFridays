@@ -1,0 +1,10 @@
+// How many products on order need to be restock?
+
+Day 18 = 
+CALCULATE ( 
+    COUNTROWS(VALUES(Products[ProductID]))  ,    // Alternatively: COUNTA ( Products[ProductID] )
+    FILTER ( 
+        Products,
+        [UnitsOnOrder] > [UnitsInStock] --  Best practice: use measures rather than columns: Products[UnitsOnOrder] > Products[UnitsInStock] 
+    )
+)
