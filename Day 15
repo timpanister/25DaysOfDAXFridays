@@ -1,0 +1,50 @@
+// How many customers purchased only Queso Cabrales (only has QC and nothing else in their orders?
+
+// Method 1:  Using INTERSECT
+Day 15 = 
+VAR SingleItemOrder =
+    SUMMARIZE (
+        FILTER (
+            SUMMARIZE (
+                Orders,
+                Orders[OrderID],
+                Orders[CustomerID],
+                "prod_count", COUNTA ( Orders[ProductID] )
+            ),
+            [prod_count] = 1
+        ),
+        Orders[OrderID],
+        Orders[CustomerID]
+    )
+VAR QCcustomers =
+    SUMMARIZE (
+        FILTER (
+            SUMMARIZE ( Orders, Orders[OrderID], Orders[CustomerID], Orders[ProductID] ),
+            Orders[ProductID] = 11
+        ),
+        Orders[OrderID],
+        Orders[CustomerID]
+    )
+RETURN
+    COUNTROWS ( INTERSECT ( SingleItemOrder, QCcustomers ) )
+
+
+
+// Method 2: 
+Day 15 = 
+COUNTROWS(
+    CALCULATETABLE (
+        FILTER (
+            SUMMARIZE (
+                Orders,
+                Orders[OrderID],
+                Orders[CustomerID],
+                "prod_count", COUNTROWS (VALUES( Orders[ProductID] ) )
+            ),
+            [prod_count] = 1
+        ),
+        Orders[ProductID] = 11
+    )
+)
+
+
