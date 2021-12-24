@@ -11,10 +11,10 @@ This repository archives the DAX measures I wrote in response to the [25DaysOfDA
 ## Key Takeaways
 1. CALCULATE's "unusual behaviour" . Unusual and yet flexible, powerful in its ability to modify the existing filter context.
 2.  Best practices in writing DAX:
-- Use Measures instead of Column Names
-- Use fully qualified TableCol Names, and never associate the Table name with Measures 
-- Organise Measures in its own Table
-- For improved reability and testing code, use VARIABLES 
+  - Use Measures instead of Column Names
+  - Use fully qualified TableCol Names, and never associate the Table name with Measures 
+  - Organise Measures in its own Table
+  - For improved reability and testing code, use VARIABLES 
 3. Performance Analyzer to compare speed of different DAX queries .
 4. Difference between aggregation functions vs their non-aggregated counterparts (e.g. SUMX vs SUM)
 5. VALUES(TableCol)  to return a list (single col table) of unique values e.g. ProductNames, CustomerNames
