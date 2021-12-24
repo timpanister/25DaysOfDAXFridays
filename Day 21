@@ -1,0 +1,23 @@
+// How many % of Employees are Female?
+
+// Method 1:
+Day 21 Percent Females = 
+
+DIVIDE (
+    CALCULATE (
+        COUNTROWS(Employees),
+        Employees[Gender] = "Female"),
+    COUNTROWS(Employees)
+    )
+
+// Method 2: Using Variables for readability and test code
+
+Day 21 = 
+VAR FemaleEmployees =     
+    CALCULATE (
+        COUNTROWS(Employees),
+        Employees[Gender] = "Female")
+VAR AllEmployees = 
+    COUNTROWS(Employees)
+RETURN
+FORMAT(DIVIDE (FemaleEmployees, AllEmployees), "0.00%")
