@@ -27,24 +27,3 @@ VAR QCcustomers =
     )
 RETURN
     COUNTROWS ( INTERSECT ( SingleItemOrder, QCcustomers ) )
-
-
-
-// Method 2: 
-Day 15 = 
-COUNTROWS(
-    CALCULATETABLE (
-        FILTER (
-            SUMMARIZE (
-                Orders,
-                Orders[OrderID],
-                Orders[CustomerID],
-                "prod_count", COUNTROWS (VALUES( Orders[ProductID] ) )
-            ),
-            [prod_count] = 1
-        ),
-        Orders[ProductID] = 11
-    )
-)
-
-
