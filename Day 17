@@ -1,0 +1,40 @@
+// How many products need to be restocked?
+// Units in Stock <= Restock Level , excl Discontinued Products
+
+
+// Method 1:  Using CALCULATE + FILTER in a row-wise operation
+Day 17 Calc Filter = 
+CALCULATE(
+    COUNTA ( Products[ProductID] ),
+    FILTER (
+        Products,
+        Products[UnitsInStock] < Products[Restock level] )
+    )
+
+// Method 2: 
+
+//ADDCOLUMNS is much faster than adding a calculated column in the Products Table.  This is because, we only add columns on smaller summarized table.
+// Secondly,  consider the efficiency of the order of operation of the inner and outer FILTER arguments :  
+// The more efficient one should be executed first, so that the outer filter argument using comparison operator, which by itself slow, operates on a smaller table
+// returned by the inner filter.
+
+Day 17.1 ADDCOL Optimised = 
+
+COUNTROWS(
+    FILTER (
+        ADDCOLUMNS (
+            FILTER (
+                SUMMARIZE (
+                    Products,
+                    Products[ProductName],
+                    Products[UnitsInStock],
+                    Products[ReorderLevel],
+                    Products[Discontinued]
+                ),
+                Products[Discontinued] = FALSE
+            ),
+            "NeedRestocking", Products[UnitsInStock] <= Products[ReorderLevel]
+        ),
+        [NeedRestocking]
+    )
+)
