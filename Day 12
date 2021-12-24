@@ -1,0 +1,23 @@
+// How many lost customers in 2021? (i.e. Customers who did not make an order in 2021 but who did in previous years)
+
+Day 13 =
+
+VAR CustomersPrior2021 =
+    CALCULATETABLE(
+        VALUES(Orders[CustomerID]),   -- Return unique list of customer names
+        'Calendar'[Year] < 2021       -- Who made purchases before 2021   
+    )
+
+VAR CustomersIn2021 =
+    CALCULATETABLE(
+        VALUES(Orders[CustomerID]),   -- Return unique list of customer names
+        'Calendar'[Year] = 2021       -- Who made purchases in 2021
+    )
+
+VAR LostCustomersIn2021 = EXCEPT(CustomersPrior2021, CustomersIn2021)   
+VAR NewCustomersIn2021 = EXCEPT(CustomersIn2021, CustomersPrior2021)
+Return
+
+COUNTROWS(LostCustomersIn2021)
+
+-- COUNTROWS(NewCustomersIn2021)
