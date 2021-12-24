@@ -1,0 +1,29 @@
+// Day 14 How many customers NEVER purchased Queso Cabrales?
+
+//Method 1: 
+Day 14.1 = 
+VAR all_customers = 
+  VALUES ( Orders[CustomerID] )   --- Table of unique customers names
+
+VAR qc_customers = 
+  CALCULATETABLE ( VALUES(Orders[CustomerID]), Orders[ProductID] = 11)   --- Table of unique customers who bought QC
+RETURN
+
+CALCULATE(
+   COUNTROWS(VALUES(Orders[CustomerID])),   --- Get the distinct number of customers
+   EXCEPT( all_customers, qc_customers)     --- Where they NEVER purchase qc.
+)          
+
+// Method 2 (faster):
+Day 14.3 = 
+VAR Customers_count =
+    COUNTROWS ( VALUES ( Orders[CustomerID] ) )
+VAR QC_count =
+    COUNTROWS (
+        FILTER (
+            SUMMARIZECOLUMNS ( Orders[CustomerID], Orders[ProductID] ),
+            Orders[ProductID] = 11
+        )
+    )
+RETURN
+    Customers_count - QC_count
