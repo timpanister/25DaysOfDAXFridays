@@ -1,0 +1,7 @@
+// What is the stock value of discontinued (dead) products?
+
+Day 19.1  = 
+CALCULATE (
+    SUMX ( Products, [Stocked units] * [Unit Price] ),  --Best practices: 1. Use measures instead of columns. 2. Do not reference Table &Measure Names 
+    Products[Discontinued] =True()
+)
