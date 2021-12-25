@@ -1,0 +1,7 @@
+// How many employees sold over $100k in 2021?
+
+CALCULATE(
+    COUNTROWS (
+        FILTER (VALUES(Employees), [Total sales] > 100000) 
+        ),
+    'Calendar'[Year]= 2021 )
