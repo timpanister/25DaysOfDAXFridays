@@ -1,0 +1,19 @@
+// Which employee made the highest sales in 2021?
+
+//Curbal's solution
+Day 23.1 Curbal = 
+VAR CurrentYear = 2021
+RETURN
+
+CALCULATE (
+    SELECTEDVALUE(Employees[Full Name]),
+    TOPN (  1,
+            Employees,
+            CALCULATE([Total sales], 'Calendar'[Year] = CurrentYear),
+            DESC
+            )
+    )
+    
+// Method 2:
+TOPN(1, VALUES(Employees[Full Name]),
+CALCULATE([Total sales],'Calendar'[Year] = 2021), DESC) 
