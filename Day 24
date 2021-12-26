@@ -1,7 +1,43 @@
 // How many employees sold over $100k in 2021?
 
+// METHOD 1: Most elegant solution
+Day 24 Curbal Soln = 
+
 CALCULATE(
     COUNTROWS (
-        FILTER (VALUES(Employees), [Total sales] > 100000) 
+        FILTER (VALUES(Employees), [Total sales] > 100000)    ---VALUES(Employees) return a filtered Employees table
         ),
     'Calendar'[Year]= 2021 )
+
+// METHOD 2 My Soln: Problem --- If measure is added to a Table or Matrix, the viz cannot be displayed. "SUMMARIZECOLUMNS ...... cannot be used in this context"
+// From SQIBI guys. SUMMARIZECOLUMNS does not support evaluation within a context transition. This makes it not useful in most of the measures  
+// Solution: SUMMARIZE + ADDCOLUMNS
+
+Day 24 test = 
+CALCULATE(
+    COUNTROWS(
+        FILTER (
+            SUMMARIZECOLUMNS (              
+                Employees[Full Name],
+                'Calendar'[Year],
+                "@Sales", [Total sales] 
+            ),
+        [@Sales] >100000 && 'Calendar'[Year] =2021
+        )
+    )
+) 
+
+//Method 3 
+Day 24 test anticode = 
+
+CALCULATE(
+    COUNTROWS(
+        FILTER (
+            ADDCOLUMNS(
+                SUMMARIZE (
+                    Employees,
+                    Employees[Full Name]),
+                "@Total Sales", [Total sales] ),
+            [@Total Sales] > 100000 )
+        ),
+'Calendar'[Year] = 2021 )
