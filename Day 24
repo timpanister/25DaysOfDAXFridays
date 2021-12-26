@@ -11,7 +11,9 @@ CALCULATE(
 
 // METHOD 2 My Soln: Problem --- If measure is added to a Table or Matrix, the viz cannot be displayed. "SUMMARIZECOLUMNS ...... cannot be used in this context"
 // From SQIBI guys. SUMMARIZECOLUMNS does not support evaluation within a context transition. This makes it not useful in most of the measures  
-// Solution: SUMMARIZE + ADDCOLUMNS
+// However, the measure can be used in a card. 
+// Solution: SUMMARIZE + ADDCOLUMNS 
+//https://www.sqlbi.com/blog/marco/2017/02/02/using-summarizecolumns-instead-of-summarize-in-dax-powerbi-ssas-tabular/
 
 Day 24 test = 
 CALCULATE(
@@ -27,7 +29,7 @@ CALCULATE(
     )
 ) 
 
-//Method 3 
+//Method 3 . Using ADDCOLUMNS /SUMMARIZE instead of SUMMARIZECOLUMNS
 Day 24 test anticode = 
 
 CALCULATE(
